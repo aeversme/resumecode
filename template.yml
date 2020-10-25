@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  AE Resume Counter
+
+Resources:
+  ResumeCounter:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Lambda/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /count
+            Method: get
+      Environment:
+        Variables: 
+          databaseName : !Ref MyTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref MyTable
+
+  MyTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+
+Outputs:
+  ResumeCounterApi:
+    Description: "API Gateway endpoint URL for Prod stage for Resume Counter function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/count/"
