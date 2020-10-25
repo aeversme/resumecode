@@ -13,7 +13,7 @@ def lambda_handler(event, context):
         Key={
             'id': 'Counter'
         },
-        UpdateExpression='SET hits += :value',
+        UpdateExpression='SET hits = :value',
         ExpressionAttributeValues={
             ':value': 1
         },
