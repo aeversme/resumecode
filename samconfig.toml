@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "ae-resume-counter"
+s3_bucket = "ae-resume-backend-code-deploy-bucket"
+s3_prefix = "ae-resume-counter"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
